@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 void displayResult(
     const std::string& algorithmName,
@@ -28,24 +29,23 @@ void displayResult(
               << result.totalFreeMemory << " KB\n";
 }
 
+
 int main() {
     std::vector<MemoryBlock> blocks = {
         {1, 100},
-        {2, 500},
+        {2, 300},
         {3, 200},
-        {4, 300}
+        {4, 400}
     };
 
     std::vector<MemoryRequest> processes = {
         {"P1", 180},
-        {"P2", 120},
+        {"P2", 90},
         {"P3", 250}
     };
 
     displayResult("FIRST FIT", runFirstFit(blocks, processes));
-
     displayResult("BEST FIT", runBestFit(blocks, processes));
-
     displayResult("WORST FIT", runWorstFit(blocks, processes));
 
     return 0;
