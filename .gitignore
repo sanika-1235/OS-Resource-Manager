@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+node_modules/
+dist/
+*.exe
+.vscode/
+.env
+.env.*
+!.env.example
+=======
 
 # Compiled C++ executables
 *.exe
@@ -8,3 +17,4 @@
 
 # Debug files
 *.pdb
+>>>>>>> origin/main
