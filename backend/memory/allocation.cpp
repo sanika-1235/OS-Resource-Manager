@@ -1,217 +1,279 @@
 #include "allocation.h"
 
+#include <algorithm>
+#include <limits>
 #include <stdexcept>
+#include <unordered_set>
 
-AllocationResult runFirstFit(
-    const std::vector<MemoryBlock>& blocks,
+// Validate memory regions and process requests.
+static void validateInput(
+    const std::vector<MemoryRegion>& regions,
     const std::vector<MemoryRequest>& processes
 ) {
-
-
-    if (blocks.empty()) {
-        throw std::invalid_argument("Memory blocks cannot be empty.");
+    if (regions.empty()) {
+        throw std::invalid_argument("Memory regions cannot be empty.");
     }
 
-    std::vector<MemoryBlock> freeBlocks = blocks;
-    AllocationResult result;
+    std::unordered_set<int> regionIds;
+    std::unordered_set<std::string> processIds;
 
-    // Validate the initial memory blocks.
-    for (const auto& block : blocks) {
-        if (block.id <= 0 || block.size <= 0) {
+    for (const auto& region : regions) {
+        if (region.id <= 0 || region.startAddress < 0 || region.size <= 0) {
             throw std::invalid_argument(
-                "Block IDs and sizes must be positive."
+                "Region IDs and sizes must be positive, and addresses non-negative."
             );
+        }
+
+        if (!regionIds.insert(region.id).second) {
+            throw std::invalid_argument("Memory region IDs must be unique.");
         }
     }
 
-    // Validate process requests.
     for (const auto& process : processes) {
         if (process.pid.empty() || process.size <= 0) {
             throw std::invalid_argument(
                 "Process IDs must not be empty and sizes must be positive."
             );
         }
+
+        if (!processIds.insert(process.pid).second) {
+            throw std::invalid_argument("Process IDs must be unique.");
+        }
+    }
+}
+
+// Calculate memory statistics for the current layout.
+static void calculateStatistics(AllocationResult& result) {
+    result.totalFreeMemory = 0;
+    result.largestFreeBlock = 0;
+    result.freeBlockCount = 0;
+
+    for (const auto& region : result.memoryLayout) {
+        if (!region.allocated) {
+            result.totalFreeMemory += region.size;
+            result.largestFreeBlock =
+                std::max(result.largestFreeBlock, region.size);
+            result.freeBlockCount++;
+        }
     }
 
-    // Process requests in their input order.
+    if (result.totalFreeMemory > 0) {
+        result.externalFragmentation =
+            100.0 * (result.totalFreeMemory - result.largestFreeBlock)
+            / result.totalFreeMemory;
+    } else {
+        result.externalFragmentation = 0.0;
+    }
+}
+
+// Merge adjacent free regions.
+static void mergeFreeRegions(AllocationResult& result) {
+    std::sort(
+        result.memoryLayout.begin(),
+        result.memoryLayout.end(),
+        [](const MemoryRegion& a, const MemoryRegion& b) {
+            return a.startAddress < b.startAddress;
+        }
+    );
+
+    std::vector<MemoryRegion> merged;
+
+    for (const auto& region : result.memoryLayout) {
+        if (!merged.empty()) {
+            MemoryRegion& previous = merged.back();
+
+            if (!previous.allocated &&
+                !region.allocated &&
+                previous.startAddress + previous.size == region.startAddress) {
+
+                previous.size += region.size;
+                continue;
+            }
+        }
+
+        merged.push_back(region);
+    }
+
+    result.memoryLayout = merged;
+}
+
+// Allocate memory using the selected strategy.
+static AllocationResult allocateMemory(
+    const std::vector<MemoryRegion>& regions,
+    const std::vector<MemoryRequest>& processes,
+    int strategy
+) {
+    validateInput(regions, processes);
+
+    AllocationResult result{};
+    result.memoryLayout = regions;
+
+    // Sort regions by physical address.
+    std::sort(
+        result.memoryLayout.begin(),
+        result.memoryLayout.end(),
+        [](const MemoryRegion& a, const MemoryRegion& b) {
+            return a.startAddress < b.startAddress;
+        }
+    );
+
+    // Generate unique IDs for newly created memory regions.
+int nextRegionId = 1;
+
+for (const auto& region : result.memoryLayout) {
+    if (region.id >= nextRegionId) {
+        nextRegionId = region.id + 1;
+    }
+}
+
+    // Validate that regions do not overlap.
+    for (std::size_t i = 1; i < result.memoryLayout.size(); i++) {
+        const MemoryRegion& previous = result.memoryLayout[i - 1];
+        const MemoryRegion& current = result.memoryLayout[i];
+
+        if (previous.startAddress + previous.size > current.startAddress) {
+            throw std::invalid_argument(
+                "Memory regions must not overlap."
+            );
+        }
+    }
+
+    // Process each request in input order.
     for (const auto& process : processes) {
         AllocationDecision decision{
             process.pid,
             process.size,
             -1,
+            -1,
             0,
             false
         };
 
-        // First Fit: choose the first available region that is large enough.
-        for (auto& block : freeBlocks) {
-            if (block.size >= process.size) {
-                decision.blockId = block.id;
-                decision.allocatedSize = process.size;
-                decision.allocated = true;
+        int selectedIndex = -1;
 
-                // Keep the unused portion available.
-                block.size -= process.size;
+        for (int i = 0;
+             i < static_cast<int>(result.memoryLayout.size());
+             i++) {
 
-                break;
+            const MemoryRegion& region = result.memoryLayout[i];
+
+            if (region.allocated || region.size < process.size) {
+                continue;
+            }
+
+            if (selectedIndex == -1) {
+                selectedIndex = i;
+                continue;
+            }
+
+            const int selectedSize =
+                result.memoryLayout[selectedIndex].size;
+
+            if (strategy == 1 && region.size < selectedSize) {
+                // Best Fit: choose the smallest suitable region.
+                selectedIndex = i;
+            } else if (strategy == 2 && region.size > selectedSize) {
+                // Worst Fit: choose the largest suitable region.
+                selectedIndex = i;
+            }
+
+            // First Fit keeps the first suitable region.
+        }
+
+        if (selectedIndex != -1) {
+            MemoryRegion original = result.memoryLayout[selectedIndex];
+
+            decision.blockId = original.id;
+            decision.startAddress = original.startAddress;
+            decision.allocatedSize = process.size;
+            decision.allocated = true;
+
+            // Replace the free region with the allocated region.
+            MemoryRegion allocatedRegion{
+                original.id,
+                original.startAddress,
+                process.size,
+                true,
+                process.pid
+            };
+
+            result.memoryLayout[selectedIndex] = allocatedRegion;
+
+            // Create a remaining free region when space is left over.
+            int remainingSize = original.size - process.size;
+
+            if (remainingSize > 0) {
+               MemoryRegion remainingRegion{
+    nextRegionId++,
+    original.startAddress + process.size,
+    remainingSize,
+    false,
+    ""
+};
+
+                result.memoryLayout.insert(
+                    result.memoryLayout.begin() + selectedIndex + 1,
+                    remainingRegion
+                );
             }
         }
 
         result.decisions.push_back(decision);
     }
 
-    // Calculate total remaining free memory.
-    result.totalFreeMemory = 0;
-
-    for (const auto& block : freeBlocks) {
-        result.totalFreeMemory += block.size;
-    }
-
+    calculateStatistics(result);
     return result;
+}
+
+AllocationResult runFirstFit(
+    const std::vector<MemoryRegion>& regions,
+    const std::vector<MemoryRequest>& processes
+) {
+    return allocateMemory(regions, processes, 0);
 }
 
 AllocationResult runBestFit(
-    const std::vector<MemoryBlock>& blocks,
+    const std::vector<MemoryRegion>& regions,
     const std::vector<MemoryRequest>& processes
 ) {
-    if (blocks.empty()) {
-        throw std::invalid_argument("Memory blocks cannot be empty.");
-    }
-
-    std::vector<MemoryBlock> freeBlocks = blocks;
-    AllocationResult result;
-    result.totalFreeMemory = 0;
-
-    // Validate memory blocks.
-    for (const auto& block : blocks) {
-        if (block.id <= 0 || block.size <= 0) {
-            throw std::invalid_argument(
-                "Block IDs and sizes must be positive."
-            );
-        }
-    }
-
-    // Validate process requests.
-    for (const auto& process : processes) {
-        if (process.pid.empty() || process.size <= 0) {
-            throw std::invalid_argument(
-                "Process IDs must not be empty and sizes must be positive."
-            );
-        }
-    }
-
-    // Process each request in input order.
-    for (const auto& process : processes) {
-        AllocationDecision decision{
-            process.pid,
-            process.size,
-            -1,
-            0,
-            false
-        };
-
-        int bestIndex = -1;
-
-        // Find the smallest free region that can accommodate the process.
-        for (int i = 0; i < static_cast<int>(freeBlocks.size()); i++) {
-            if (freeBlocks[i].size >= process.size) {
-                if (bestIndex == -1 ||
-                    freeBlocks[i].size < freeBlocks[bestIndex].size) {
-                    bestIndex = i;
-                }
-            }
-        }
-
-        // Allocate memory if a suitable region exists.
-        if (bestIndex != -1) {
-            decision.blockId = freeBlocks[bestIndex].id;
-            decision.allocatedSize = process.size;
-            decision.allocated = true;
-
-            freeBlocks[bestIndex].size -= process.size;
-        }
-
-        result.decisions.push_back(decision);
-    }
-
-    // Calculate remaining free memory.
-    for (const auto& block : freeBlocks) {
-        result.totalFreeMemory += block.size;
-    }
-
-    return result;
+    return allocateMemory(regions, processes, 1);
 }
-
 
 AllocationResult runWorstFit(
-    const std::vector<MemoryBlock>& blocks,
+    const std::vector<MemoryRegion>& regions,
     const std::vector<MemoryRequest>& processes
 ) {
-    if (blocks.empty()) {
-        throw std::invalid_argument("Memory blocks cannot be empty.");
+    return allocateMemory(regions, processes, 2);
+}
+
+// Release a process's memory and merge adjacent free regions.
+AllocationResult deallocateProcess(
+    const AllocationResult& currentState,
+    const std::string& pid
+) {
+    if (pid.empty()) {
+        throw std::invalid_argument("Process ID cannot be empty.");
     }
 
-    std::vector<MemoryBlock> freeBlocks = blocks;
-    AllocationResult result;
-    result.totalFreeMemory = 0;
+    AllocationResult result = currentState;
+    bool found = false;
 
-    // Validate memory blocks.
-    for (const auto& block : blocks) {
-        if (block.id <= 0 || block.size <= 0) {
-            throw std::invalid_argument(
-                "Block IDs and sizes must be positive."
-            );
+    for (auto& region : result.memoryLayout) {
+        if (region.allocated && region.pid == pid) {
+            region.allocated = false;
+            region.pid.clear();
+            found = true;
         }
     }
 
-    // Validate process requests.
-    for (const auto& process : processes) {
-        if (process.pid.empty() || process.size <= 0) {
-            throw std::invalid_argument(
-                "Process IDs must not be empty and sizes must be positive."
-            );
-        }
+    if (!found) {
+        throw std::invalid_argument(
+            "The specified process has no allocated memory."
+        );
     }
 
-    // Process each request in input order.
-    for (const auto& process : processes) {
-        AllocationDecision decision{
-            process.pid,
-            process.size,
-            -1,
-            0,
-            false
-        };
-
-        int worstIndex = -1;
-
-        // Find the largest free region that can accommodate the process.
-        for (int i = 0; i < static_cast<int>(freeBlocks.size()); i++) {
-            if (freeBlocks[i].size >= process.size) {
-                if (worstIndex == -1 ||
-                    freeBlocks[i].size > freeBlocks[worstIndex].size) {
-                    worstIndex = i;
-                }
-            }
-        }
-
-        // Allocate memory if a suitable region exists.
-        if (worstIndex != -1) {
-            decision.blockId = freeBlocks[worstIndex].id;
-            decision.allocatedSize = process.size;
-            decision.allocated = true;
-
-            freeBlocks[worstIndex].size -= process.size;
-        }
-
-        result.decisions.push_back(decision);
-    }
-
-    // Calculate remaining free memory.
-    for (const auto& block : freeBlocks) {
-        result.totalFreeMemory += block.size;
-    }
+    mergeFreeRegions(result);
+    calculateStatistics(result);
 
     return result;
 }
-
