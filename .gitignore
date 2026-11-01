@@ -1,0 +1,10 @@
+
+# Compiled C++ executables
+*.exe
+
+# Object files
+*.o
+*.obj
+
+# Debug files
+*.pdb
