@@ -1,0 +1,1 @@
+Contains memory allocation, paging, and page replacement algorithms including First Fit, Best Fit, Worst Fit, FIFO, and LRU.

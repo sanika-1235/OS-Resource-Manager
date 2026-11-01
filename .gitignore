@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 dist/
 *.exe
@@ -5,3 +6,15 @@ dist/
 .env
 .env.*
 !.env.example
+=======
+
+# Compiled C++ executables
+*.exe
+
+# Object files
+*.o
+*.obj
+
+# Debug files
+*.pdb
+>>>>>>> origin/main

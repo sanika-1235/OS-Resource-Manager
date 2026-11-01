@@ -1,0 +1,1 @@
+Contains deadlock detection and resource management implementation using Banker's Safety Algorithm.
