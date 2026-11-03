@@ -7,9 +7,7 @@ using namespace std;
 
 // Search process using PID
 Process* ProcessManager::findProcess(int pid) {
-
     for (auto &p : processes) {
-
         if (p.pid == pid) {
             return &p;
         }
@@ -23,28 +21,22 @@ bool ProcessManager::createProcess(
     int pid, string name,
     int arrival, int burst, int priority) {
 
-    // Validate inputs
     if (pid <= 0 || name.empty() ||
         arrival < 0 || burst <= 0 || priority < 0) {
-
         cout << "Invalid process details!\n";
         return false;
     }
 
-    // Check duplicate PID
     if (findProcess(pid) != nullptr) {
-
         cout << "Duplicate PID!\n";
         return false;
     }
 
-    // Add process
     processes.emplace_back(
         pid, name, arrival, burst, priority
     );
 
     cout << "Process created successfully!\n";
-
     return true;
 }
 
@@ -67,25 +59,25 @@ bool ProcessManager::updateState(
     bool valid = false;
 
     switch (p->state) {
-
         case ProcessState::NEW:
-            valid = (newState == ProcessState::READY);
+            valid = (newState == ProcessState::READY ||
+                     newState == ProcessState::TERMINATED);
             break;
 
         case ProcessState::READY:
-            valid = (newState == ProcessState::RUNNING);
+            valid = (newState == ProcessState::RUNNING ||
+                     newState == ProcessState::TERMINATED);
             break;
 
         case ProcessState::RUNNING:
-            valid = (
-                newState == ProcessState::READY ||
-                newState == ProcessState::WAITING ||
-                newState == ProcessState::TERMINATED
-            );
+            valid = (newState == ProcessState::READY ||
+                     newState == ProcessState::WAITING ||
+                     newState == ProcessState::TERMINATED);
             break;
 
         case ProcessState::WAITING:
-            valid = (newState == ProcessState::READY);
+            valid = (newState == ProcessState::READY ||
+                     newState == ProcessState::TERMINATED);
             break;
 
         case ProcessState::TERMINATED:
@@ -101,19 +93,16 @@ bool ProcessManager::updateState(
     p->state = newState;
 
     cout << "Process state updated!\n";
-
     return true;
 }
 
 // Terminate process
 bool ProcessManager::terminateProcess(int pid) {
-
     return updateState(pid, ProcessState::TERMINATED);
 }
 
 // Display process table
 void ProcessManager::displayProcesses() {
-
     cout << "\n========== PROCESS TABLE ==========\n";
 
     cout << left
@@ -127,7 +116,6 @@ void ProcessManager::displayProcesses() {
          << endl;
 
     for (const auto &p : processes) {
-
         cout << left
              << setw(10) << p.pid
              << setw(15) << p.name
@@ -142,6 +130,5 @@ void ProcessManager::displayProcesses() {
 
 // Return process list
 vector<Process> ProcessManager::getAllProcesses() const {
-
     return processes;
 }

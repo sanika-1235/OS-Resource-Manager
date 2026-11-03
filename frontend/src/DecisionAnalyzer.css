@@ -1,0 +1,285 @@
+
+.analyzer-page {
+  padding: 32px 38px;
+}
+
+.analyzer-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.analyzer-intro h2 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.analyzer-intro p,
+.analyzer-panel-heading p {
+  color: #8995a8;
+  font-size: 12px;
+}
+
+.analyzer-tag {
+  background: #e9edff;
+  color: #5368ed;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.analyzer-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.analyzer-summary-card {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 11px;
+  padding: 20px;
+}
+
+.analyzer-summary-card span {
+  color: #758198;
+  font-size: 12px;
+}
+
+.analyzer-summary-card h2 {
+  font-size: 27px;
+  color: #5368ed;
+  margin: 13px 0 5px;
+}
+
+.analyzer-summary-card small {
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+.analyzer-panel {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.analyzer-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.analyzer-panel-heading h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.analysis-status {
+  background: #fff3df;
+  color: #b7791f;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Decision timeline */
+
+.decision-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.decision-item {
+  display: grid;
+  grid-template-columns: 125px 1fr;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.decision-item:last-child {
+  padding-bottom: 0;
+}
+
+.decision-time {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #5368ed;
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 3px;
+}
+
+.decision-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5368ed;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.decision-content {
+  border-left: 2px solid #e9edf4;
+  padding: 0 0 5px 20px;
+}
+
+.decision-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.decision-top strong {
+  font-size: 13px;
+  color: #354258;
+}
+
+.selected-label {
+  background: #e4f8ef;
+  color: #23976c;
+  border-radius: 5px;
+  padding: 5px 9px;
+  font-size: 10px;
+}
+
+.decision-content p {
+  color: #8995a8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Waiting time analysis */
+
+.waiting-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.waiting-row {
+  display: grid;
+  grid-template-columns: 45px 1fr 75px;
+  align-items: center;
+  gap: 15px;
+}
+
+.waiting-row strong {
+  color: #354258;
+  font-size: 12px;
+}
+
+.waiting-track {
+  height: 12px;
+  background: #eef0f6;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.waiting-fill {
+  height: 100%;
+  background: #5368ed;
+  border-radius: 20px;
+  transition: width 0.3s;
+}
+
+.waiting-row > span {
+  color: #758198;
+  font-size: 11px;
+  text-align: right;
+}
+
+.average-waiting {
+  margin-top: 28px;
+  padding: 18px;
+  background: #f6f7ff;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.average-waiting span {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.average-waiting p {
+  font-size: 11px;
+  color: #8995a8;
+  margin-top: 5px;
+}
+
+.average-waiting > strong {
+  font-size: 22px;
+  color: #5368ed;
+  white-space: nowrap;
+}
+
+.average-waiting small {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.analyzer-note {
+  padding: 19px 22px;
+  background: #eef3ff;
+  border-left: 4px solid #5368ed;
+  border-radius: 8px;
+}
+
+.analyzer-note strong {
+  color: #354b9a;
+  font-size: 13px;
+}
+
+.analyzer-note p {
+  color: #667795;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .analyzer-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .analyzer-page {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .analyzer-intro {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .decision-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .decision-content {
+    margin-left: 4px;
+  }
+
+  .waiting-row {
+    grid-template-columns: 35px 1fr 65px;
+    gap: 8px;
+  }
+}

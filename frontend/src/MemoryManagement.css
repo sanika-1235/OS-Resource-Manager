@@ -1,0 +1,384 @@
+
+.memory-page {
+  padding: 32px 38px;
+}
+
+.memory-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.memory-intro h2 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.memory-intro p,
+.memory-panel-heading p {
+  color: #8995a8;
+  font-size: 12px;
+}
+
+.memory-tag {
+  background: #e9edff;
+  color: #5368ed;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.memory-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.memory-stat {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 10px;
+  padding: 19px;
+}
+
+.memory-stat span {
+  color: #758198;
+  font-size: 11px;
+}
+
+.memory-stat h2 {
+  color: #5368ed;
+  font-size: 24px;
+  margin-top: 13px;
+}
+
+.memory-stat h2 small {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.memory-panel {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.memory-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.memory-panel-heading h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.memory-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  align-items: end;
+  gap: 15px;
+}
+
+.memory-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.memory-field label {
+  color: #58657a;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.memory-field input,
+.memory-field select {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #e1e6ef;
+  border-radius: 7px;
+  background: white;
+  color: #354258;
+  font-size: 12px;
+  outline: none;
+}
+
+.memory-field input:focus,
+.memory-field select:focus {
+  border-color: #5368ed;
+}
+
+.memory-allocate,
+.memory-reset {
+  border: none;
+  border-radius: 7px;
+  padding: 12px 17px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.memory-allocate {
+  background: #5368ed;
+  color: white;
+  height: 42px;
+}
+
+.memory-reset {
+  background: #f0f2f7;
+  color: #58657a;
+}
+
+.memory-allocate:hover {
+  background: #4055d6;
+}
+
+.memory-message {
+  margin-top: 17px;
+  padding: 12px 14px;
+  border-radius: 7px;
+  background: #f4f6ff;
+  color: #5368a8;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.memory-blocks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.memory-block {
+  border: 1px solid #e5eaf2;
+  border-radius: 9px;
+  padding: 17px;
+  min-height: 145px;
+}
+
+.memory-block.available {
+  background: #f8fbfa;
+  border-left: 4px solid #28a77f;
+}
+
+.memory-block.occupied {
+  background: #f7f8ff;
+  border-left: 4px solid #5368ed;
+}
+
+.memory-block-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.memory-block-top strong {
+  color: #354258;
+  font-size: 12px;
+}
+
+.memory-block-top span {
+  color: #8995a8;
+  font-size: 11px;
+}
+
+.memory-process {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.memory-process strong {
+  color: #5368ed;
+  font-size: 14px;
+}
+
+.memory-process span {
+  color: #758198;
+  font-size: 10px;
+}
+
+.memory-block-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.memory-block-footer span {
+  color: #8995a8;
+  font-size: 10px;
+}
+
+.memory-block-footer button {
+  border: none;
+  background: #ffecec;
+  color: #d45d5d;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.memory-free-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #26936f;
+  font-size: 12px;
+}
+
+.free-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #28a77f;
+}
+
+.memory-legend {
+  display: flex;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.memory-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #758198;
+  font-size: 10px;
+}
+
+.memory-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.legend-used {
+  background: #5368ed;
+}
+
+.legend-free {
+  background: #28a77f;
+}
+
+.memory-utilization {
+  margin-bottom: 22px;
+}
+
+.utilization-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 11px;
+}
+
+.utilization-heading strong {
+  font-size: 12px;
+  color: #354258;
+}
+
+.utilization-heading span {
+  color: #5368ed;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.utilization-track {
+  height: 13px;
+  background: #edf0f6;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.utilization-fill {
+  height: 100%;
+  background: #5368ed;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.fragmentation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background: #fff8ec;
+  border: 1px solid #f7e9d0;
+  border-radius: 9px;
+  padding: 17px;
+}
+
+.fragmentation-card div strong {
+  color: #795b2c;
+  font-size: 12px;
+}
+
+.fragmentation-card p {
+  color: #9b8667;
+  font-size: 10px;
+  margin-top: 6px;
+}
+
+.fragmentation-card > strong {
+  color: #b7791f;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+  .memory-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .memory-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .memory-page {
+    padding: 20px;
+  }
+
+  .memory-intro {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .memory-stats,
+  .memory-blocks,
+  .memory-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-panel {
+    padding: 17px;
+  }
+
+  .memory-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fragmentation-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
