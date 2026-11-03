@@ -1,0 +1,416 @@
+
+.deadlock-page {
+  padding: 32px 38px;
+}
+
+.deadlock-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.deadlock-intro h2 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.deadlock-intro p,
+.deadlock-panel-heading p {
+  color: #8995a8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.deadlock-tag {
+  background: #e9edff;
+  color: #5368ed;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.deadlock-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.deadlock-stat {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 10px;
+  padding: 19px;
+  min-width: 0;
+}
+
+.deadlock-stat span {
+  color: #758198;
+  font-size: 11px;
+}
+
+.deadlock-stat h2 {
+  color: #5368ed;
+  font-size: 25px;
+  margin: 13px 0 5px;
+}
+
+.deadlock-stat small {
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+.deadlock-stat h2.safe-text {
+  color: #23976c;
+  font-size: 20px;
+}
+
+.deadlock-stat h2.unsafe-text {
+  color: #d45d5d;
+  font-size: 20px;
+}
+
+.deadlock-panel {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.deadlock-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.deadlock-panel-heading h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+/* Available resource cards */
+
+.resource-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.resource-card {
+  background: #f6f7ff;
+  border: 1px solid #e8ebff;
+  border-radius: 9px;
+  padding: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resource-card span {
+  color: #758198;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.resource-card strong {
+  color: #5368ed;
+  font-size: 25px;
+}
+
+.resource-card small {
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+/* Allocation table */
+
+.deadlock-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.deadlock-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+  text-align: center;
+}
+
+.deadlock-table th {
+  background: #f5f6fb;
+  color: #58657a;
+  padding: 12px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid #e9edf4;
+}
+
+.deadlock-table td {
+  padding: 13px 10px;
+  color: #58657a;
+  font-size: 12px;
+  border: 1px solid #edf0f5;
+}
+
+.deadlock-table td:first-child {
+  text-align: left;
+}
+
+.deadlock-pid {
+  display: inline-block;
+  background: #e9edff;
+  color: #5368ed;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+/* Resource request */
+
+.request-controls {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.deadlock-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.deadlock-field label {
+  color: #58657a;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.deadlock-field input,
+.deadlock-field select {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 10px;
+  border: 1px solid #e1e6ef;
+  border-radius: 7px;
+  background: white;
+  color: #354258;
+  font-size: 12px;
+  outline: none;
+}
+
+.deadlock-field input:focus,
+.deadlock-field select:focus {
+  border-color: #5368ed;
+}
+
+.request-button,
+.detect-button,
+.deadlock-reset {
+  border: none;
+  border-radius: 7px;
+  padding: 12px 15px;
+  height: 42px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.request-button,
+.detect-button {
+  background: #5368ed;
+  color: white;
+}
+
+.request-button:hover,
+.detect-button:hover {
+  background: #4055d6;
+}
+
+/* Allocation graph */
+
+.allocation-graph {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.graph-process {
+  background: #f7f8ff;
+  border: 1px solid #e8ebff;
+  border-radius: 9px;
+  padding: 14px;
+  min-width: 0;
+}
+
+.graph-process > strong {
+  display: inline-block;
+  color: #5368ed;
+  background: #e9edff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 13px;
+}
+
+.graph-resources {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.graph-resources span {
+  color: #58657a;
+  background: white;
+  border: 1px solid #e9edf4;
+  padding: 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+.graph-resources .no-resource {
+  color: #9aa5b5;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.graph-caption {
+  color: #9aa5b5;
+  font-size: 10px;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+/* Detection */
+
+.detection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.deadlock-reset {
+  background: #f0f2f7;
+  color: #58657a;
+}
+
+.deadlock-message {
+  margin-top: 17px;
+  padding: 13px 15px;
+  background: #f4f6ff;
+  color: #5368a8;
+  border-radius: 7px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.safety-result {
+  margin-top: 17px;
+  border-radius: 9px;
+  padding: 18px;
+}
+
+.safe-result {
+  background: #effaf5;
+  border: 1px solid #d6f0e3;
+  color: #21815f;
+}
+
+.unsafe-result {
+  background: #fff2f1;
+  border: 1px solid #f5d9d6;
+  color: #bd5555;
+}
+
+.safety-result > strong {
+  font-size: 13px;
+}
+
+.safety-result > p {
+  font-size: 11px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.safe-sequence {
+  margin-top: 15px;
+}
+
+.safe-sequence > span {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.safe-sequence > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.sequence-process {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #d6f0e3;
+  border-radius: 6px;
+  padding: 8px 11px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sequence-arrow {
+  color: #8a9b91;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .deadlock-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .request-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .allocation-graph {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .deadlock-page {
+    padding: 20px;
+  }
+
+  .deadlock-intro {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .deadlock-stats,
+  .resource-cards,
+  .request-controls,
+  .allocation-graph {
+    grid-template-columns: 1fr;
+  }
+
+  .deadlock-panel {
+    padding: 17px;
+  }
+}

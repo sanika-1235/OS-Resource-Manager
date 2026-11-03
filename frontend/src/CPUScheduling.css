@@ -1,0 +1,456 @@
+.cpu-page {
+  padding: 32px 38px;
+}
+
+.cpu-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.cpu-intro h2 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.cpu-intro p,
+.cpu-panel-heading p {
+  color: #8995a8;
+  font-size: 12px;
+}
+
+.cpu-tag {
+  background: #e9edff;
+  color: #5368ed;
+  padding: 9px 13px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cpu-panel {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.cpu-panel-heading {
+  margin-bottom: 20px;
+}
+
+.cpu-panel-heading h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.algorithm-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.algorithm-button {
+  padding: 11px 19px;
+  border: 1px solid #e2e7f0;
+  border-radius: 8px;
+  color: #536176;
+  background: white;
+  font-size: 12px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.algorithm-button:hover {
+  border-color: #5368ed;
+}
+
+.algorithm-button.selected {
+  color: white;
+  background: #5368ed;
+  border-color: #5368ed;
+}
+
+.quantum-input {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.quantum-input label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.quantum-input input {
+  width: 100px;
+  padding: 9px;
+  border: 1px solid #e2e7f0;
+  border-radius: 7px;
+}
+
+.process-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.add-process,
+.run-simulation {
+  border: none;
+  background: #5368ed;
+  color: white;
+  padding: 11px 16px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-process:hover,
+.run-simulation:hover {
+  background: #4055d8;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.process-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.process-table th {
+  background: #f7f8fc;
+  color: #758198;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 14px;
+  white-space: nowrap;
+}
+
+.process-table td {
+  border-bottom: 1px solid #edf0f5;
+  padding: 12px 14px;
+}
+
+.pid-badge {
+  background: #eef0ff;
+  color: #5368ed;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.process-input {
+  width: 85px;
+  padding: 8px;
+  border: 1px solid #e2e7f0;
+  border-radius: 6px;
+  outline: none;
+}
+
+.process-input:focus,
+.quantum-input input:focus {
+  border-color: #5368ed;
+}
+
+.remove-process {
+  border: none;
+  background: #fff0f0;
+  color: #e05252;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.simulation-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.simulation-actions span {
+  color: #8995a8;
+  font-size: 11px;
+}
+
+/* Disabled buttons and inputs */
+
+.algorithm-button:disabled,
+.add-process:disabled,
+.run-simulation:disabled,
+.remove-process:disabled,
+.process-input:disabled,
+.quantum-input input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error and loading messages */
+
+.cpu-error {
+  background: #fff1f1;
+  border: 1px solid #ffd5d5;
+  border-left: 4px solid #e05252;
+  border-radius: 9px;
+  padding: 17px 20px;
+  margin-bottom: 22px;
+  color: #a83232;
+}
+
+.cpu-error strong {
+  font-size: 13px;
+}
+
+.cpu-error p {
+  font-size: 12px;
+  margin-top: 7px;
+  line-height: 1.6;
+}
+
+.cpu-loading {
+  background: #eef0ff;
+  color: #5368ed;
+  border-radius: 9px;
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Results */
+
+.cpu-results {
+  margin-top: 28px;
+}
+
+.results-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.results-heading h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.results-heading p {
+  color: #8995a8;
+  font-size: 12px;
+}
+
+.result-badge {
+  background: #fff3df;
+  color: #b7791f;
+  padding: 7px 11px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.success-badge {
+  background: #e5f8ef;
+  color: #198754;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.result-stat {
+  background: white;
+  border: 1px solid #e9edf4;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.result-stat span {
+  color: #758198;
+  font-size: 11px;
+}
+
+.result-stat h2 {
+  color: #5368ed;
+  font-size: 25px;
+  margin: 13px 0 5px;
+}
+
+.result-stat small {
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+/* Gantt chart */
+
+.gantt-panel {
+  margin-bottom: 20px;
+}
+
+.gantt-chart {
+  display: flex;
+  width: 100%;
+  min-height: 90px;
+  overflow-x: auto;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+
+.gantt-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: white;
+  min-width: 55px;
+  border-right: 2px solid white;
+  overflow: hidden;
+  text-align: center;
+}
+
+.gantt-block strong {
+  font-size: 15px;
+}
+
+.gantt-block span {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.block-color-0 {
+  background: #5368ed;
+}
+
+.block-color-1 {
+  background: #22a88a;
+}
+
+.block-color-2 {
+  background: #e69a48;
+}
+
+.block-color-3 {
+  background: #9b59b6;
+}
+
+.block-color-4 {
+  background: #e05272;
+}
+
+.block-color-5 {
+  background: #2980b9;
+}
+
+.block-idle {
+  background: #8995a8;
+}
+
+.gantt-timeline {
+  display: flex;
+  justify-content: space-between;
+  color: #758198;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+/* Decision log */
+
+.decision-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.decision-item {
+  display: grid;
+  grid-template-columns: 100px 65px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  background: #f7f8fc;
+  border-radius: 8px;
+}
+
+.decision-time {
+  color: #5368ed;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.decision-item strong {
+  font-size: 12px;
+}
+
+.decision-item p {
+  color: #758198;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Responsive layout */
+
+@media (max-width: 1000px) {
+  .result-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .cpu-page {
+    padding: 20px;
+  }
+
+  .cpu-intro,
+  .process-heading,
+  .simulation-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .result-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .results-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gantt-block strong {
+    font-size: 12px;
+  }
+
+  .gantt-block span {
+    font-size: 9px;
+  }
+
+  .decision-item {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .decision-item p {
+    grid-column: 1 / -1;
+  }
+}
