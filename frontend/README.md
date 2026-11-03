@@ -1,16 +1,83 @@
-# React + Vite
+# Frontend — OS Resource Manager Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This folder contains the React-based user interface for the OS Resource Manager Simulator.
 
-Currently, two official plugins are available:
+The frontend communicates with the C++ backend through HTTP APIs and provides an interactive dashboard for managing and visualizing operating system concepts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technology Stack
 
-## React Compiler
+- React.js
+- Vite
+- JavaScript
+- CSS
+- HTTP / JSON
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Process Management dashboard
+- CPU Scheduling visualization and algorithm comparison
+- Memory Management interface
+- Deadlock Management and safety analysis
+- OS Decision Analyzer interface
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### 1. Install Dependencies
+
+From this directory, run:
+
+```bash
+npm install
+```
+
+### 2. Start Development Server
+
+```bash
+npm run dev
+```
+
+The application will usually be available at:
+
+```text
+http://localhost:5173
+```
+
+### 3. Build for Production
+
+```bash
+npm run build
+```
+
+### 4. Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```text
+frontend/
+├── public/
+├── src/
+├── index.html
+├── package.json
+├── package-lock.json
+├── vite.config.js
+└── README.md
+```
+
+## Backend Connection
+
+The frontend requires the C++ backend to be running separately.
+
+Refer to the main project README in the repository root for backend compilation and execution instructions.
+
+---
+
+Part of the OS Resource Manager Simulator academic team project.
