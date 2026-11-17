@@ -414,3 +414,245 @@
     padding: 17px;
   }
 }
+
+
+/* Editable resource values */
+
+.edit-hint {
+  color: #5368ed;
+  background: #e9edff;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.resource-edit-input {
+  width: 100%;
+  max-width: 130px;
+  height: 42px;
+  padding: 5px 10px;
+  border: 1px solid #dce2f2;
+  border-radius: 7px;
+  background: white;
+  color: #5368ed;
+  font-size: 23px;
+  font-weight: 700;
+  outline: none;
+}
+
+.resource-edit-input:focus {
+  border-color: #5368ed;
+  box-shadow: 0 0 0 2px rgba(83, 104, 237, 0.1);
+}
+
+/* Editable Allocation and Maximum matrix */
+
+.editable-deadlock-table {
+  min-width: 850px;
+}
+
+.matrix-input {
+  width: 55px;
+  height: 34px;
+  text-align: center;
+  border: 1px solid #dce2f2;
+  border-radius: 5px;
+  background: #f8f9ff;
+  color: #5368ed;
+  font-size: 12px;
+  font-weight: 600;
+  outline: none;
+}
+
+.matrix-input:focus {
+  border-color: #5368ed;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(83, 104, 237, 0.1);
+}
+
+.maximum-input {
+  background: #f5f8ff;
+  color: #3e659c;
+}
+
+.need-cell {
+  background: #f0faf5;
+  color: #21815f !important;
+  font-weight: 700;
+}
+
+.table-caption {
+  margin-top: 13px;
+  color: #8995a8;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.deadlock-validation {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fff2f1;
+  border: 1px solid #f5d9d6;
+  border-radius: 7px;
+  color: #bd5555;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Disabled actions */
+
+.detect-button:disabled,
+.request-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Safety algorithm walkthrough */
+
+.analysis-steps {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #dcebe3;
+}
+
+.analysis-steps h4 {
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.analysis-step {
+  padding: 13px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #dcebe3;
+  border-radius: 7px;
+}
+
+.analysis-step-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 9px;
+  font-size: 12px;
+}
+
+.step-number {
+  display: inline-flex;
+  width: 23px;
+  height: 23px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dff3e9;
+  color: #21815f;
+  font-weight: 700;
+}
+
+.analysis-step p {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.walkthrough-complete,
+.walkthrough-incomplete {
+  margin-top: 13px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.blocked-processes {
+  margin-top: 17px;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 7px;
+}
+
+.blocked-processes > strong {
+  display: block;
+  margin-bottom: 11px;
+  font-size: 12px;
+}
+
+.blocked-process {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 10px 0;
+  border-top: 1px solid #f0dedd;
+  font-size: 10px;
+}
+
+.blocked-process b {
+  color: #bd5555;
+}
+
+.blocked-process span {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 650px) {
+  .deadlock-panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+
+  .edit-hint {
+    white-space: normal;
+  }
+
+  .resource-edit-input {
+    max-width: 100%;
+  }
+
+  .blocked-process {
+    flex-direction: column;
+  }
+}
+
+
+
+.process-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.add-process-button,
+.delete-process-button {
+  border: none;
+  border-radius: 7px;
+  padding: 9px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-process-button {
+  background: #2563eb;
+  color: white;
+}
+
+.add-process-button:hover {
+  background: #1d4ed8;
+}
+
+.delete-process-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.delete-process-button:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+.delete-process-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
